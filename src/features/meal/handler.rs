@@ -25,3 +25,13 @@ pub async fn get_meal(
 
     Ok(Json(meal))
 }
+
+pub async fn get_meals(
+    pool: axum::extract::State<PgPool>,
+) -> Result<Json<Vec<Meal>>, StatusCode> {
+    let meals = service::get_meals(&pool)
+        .await
+        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+
+    Ok(Json(meals))
+}

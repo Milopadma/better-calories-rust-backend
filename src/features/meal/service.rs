@@ -9,6 +9,7 @@ pub struct CreateMeal {
     pub name: String,
 }
 
+
 pub async fn create_meal(pool: &PgPool, payload: CreateMeal) -> Result<Meal, sqlx::Error> {
     sqlx::query_as!(
         Meal,
@@ -25,3 +26,10 @@ pub async fn get_meal(pool: &PgPool, id: i64) -> Result<Meal, sqlx::Error> {
         .fetch_one(pool)
         .await
 }
+
+pub async fn get_meals(pool: &PgPool) -> Result<Vec<Meal>, sqlx::Error> {
+    sqlx::query_as!(Meal, "SELECT * FROM meals")
+        .fetch_all(pool)
+        .await
+}
+
