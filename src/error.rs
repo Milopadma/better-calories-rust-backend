@@ -1,0 +1,1 @@
+// This file can be left empty for now, or you can define custom error types here
